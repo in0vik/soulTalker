@@ -5,8 +5,6 @@ import config from 'config';
 import { ogg } from './ogg.js';
 import { openai } from './openai.js';
 
-console.log(config.get("NODE_ENV"));
-
 const INITIAL_SESSION = {
   messages: [],
 };
@@ -55,7 +53,6 @@ bot.on(message('text'), async (ctx) => {
     ctx.session.messages.push({ role: openai.roles.USER, content: ctx.message.text });
 
     const response = await openai.chat(ctx.session.messages);
-    console.log(response.contents);
 
     ctx.session.messages.push({ role: openai.roles.ASSISTANT, content: response.content });
     await ctx.reply(response.content);
