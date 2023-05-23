@@ -10,32 +10,37 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 
 class OggConverter {
   constructor() {
+    // Set the path to the installed ffmpeg binary
     ffmpeg.setFfmpegPath(installer.path);
   }
 
+  // Convert OGG file to MP3 format
   toMp3(input, output) {
     try {
       const outputPath = resolve(dirname(input), `${output}.mp3`);
       return new Promise((resolve, reject) => {
         ffmpeg(input)
-          .inputOption('-t 30')
-          .output(outputPath) 
+          .inputOption('-t 30') // Set input duration to 30 seconds
+          .output(outputPath) // Set the output path for the MP3 file
           .on('end', () => {
-            removeFile(input)
-            resolve(outputPath);
+            // Remove the original OGG file after conversion is complete
+            removeFile(input);
+            resolve(outputPath); // Resolve with the output MP3 file path
           })
           .on('error', (err) => {
-            reject(err.message);
+            reject(err.message); // Reject with the error message
           })
           .run();
       });
     } catch (e) {
-      console.log(`Error file while creating mp3: ${e.message}`);
+      console.log(`Error while creating MP3: ${e.message}`);
     }
   }
+
+  // Create an OGG file from the provided URL
   async create(url, filename) {
     try {
-      const oggPath = resolve(__dirname, '../voices', `${filename}.ogg`);
+      const oggPath = resolve(__dirname, '../voices', `${filename}.ogg`); // Set the output path for the OGG file
       const response = await axios({
         method: 'get',
         url,
@@ -45,11 +50,11 @@ class OggConverter {
         const stream = createWriteStream(oggPath);
         response.data.pipe(stream);
         stream.on('finish', () => {
-          resolve(oggPath);
+          resolve(oggPath); // Resolve with the output OGG file path
         });
       });
     } catch (e) {
-      console.log(`Error while ogg creating: ${e.message}`);
+      console.log(`Error while creating OGG: ${e.message}`);
     }
   }
 }
