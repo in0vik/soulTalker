@@ -134,3 +134,4 @@ dist
 .vscode
 config/default.json
 config/production.json
+voices/*.mp3
