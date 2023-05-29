@@ -27,6 +27,7 @@
     "@ffmpeg-installer/ffmpeg": "^1.1.0",
     "axios": "^1.4.0",
     "config": "^3.3.9",
+    "dotenv": "^16.0.3",
     "fluent-ffmpeg": "^2.1.2",
     "openai": "^3.2.1",
     "telegraf": "^4.12.2"
