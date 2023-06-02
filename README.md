@@ -1,7 +1,7 @@
 # soulTalker
 
 Welcome to soulTalker Project Repo!
-soulTalker is an innovative communication platform that brings the power of voice to your conversations with ChatGPT, our advanced AI language model. By seamlessly integrating ChatGPT's capabilities with voice interaction, soulTalker provides a unique and engaging chat experience like never before.
+soulTalker is an innovative communication platform that brings the power of voice to your conversations with ChatGPT, advanced AI language model. By seamlessly integrating ChatGPT's capabilities with voice interaction, soulTalker provides a unique and engaging chat experience like never before.
 
 [![brandbird-4.png](https://i.postimg.cc/cLDcdWsP/brandbird-4.png)](https://nochatgptbot.t.me)
 
