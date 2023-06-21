@@ -1,15 +1,17 @@
 import { Telegraf, session } from 'telegraf';
 import { code } from 'telegraf/format';
 import { message } from 'telegraf/filters';
-import config from 'config';
 import { ogg } from './ogg.js';
 import { openai } from './openai.js';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const INITIAL_SESSION = {
   messages: [],
 };
 
-const bot = new Telegraf(config.get('BOT_TOKEN'));
+const bot = new Telegraf(process.env.TELEGRAM_BOT_TOKEN);
 
 bot.use(session());
 
@@ -80,8 +82,11 @@ bot.on(message('text'), async (ctx) => {
       // Save assistant's message in the session
       ctx.session.messages.push({ role: openai.roles.ASSISTANT, content: response.content });
       
-      // Reply with the assistant's response
-      await ctx.reply(response.content);
+      // Escape reserved characters in the response content
+      const escapedContent = response.content.replace(/[\(\)!#.\-|>]/g, '\\$&');
+      
+      // Reply with the assistant's response in MarkdownV2 format
+      await ctx.replyWithMarkdownV2(escapedContent);
     }, { intervalDuration: 10000 }); // Typing interval duration set to 10 seconds
   } catch (err) {
     console.log(`error while text message: ${err}`);
