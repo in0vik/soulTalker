@@ -1,34 +1,45 @@
 {
-  "name": "tg-bot-talktochatgpt",
+  "name": "telegram-bot-template",
   "version": "1.0.0",
-  "description": "",
+  "description": "A Telegram bot template that uses telegraf.js + Next.js + Supabase",
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "nodemon ./src/main.js",
-    "start": "node ./src/main.js"
+    "start": "vercel dev",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/in0vik/tg-bot-talktochatgpt.git"
+    "url": "git+https://github.com/jsjoeio/telegram-bot-template.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/in0vik/tg-bot-talktochatgpt/issues"
+    "url": "https://github.com/jsjoeio/telegram-bot-template/issues"
   },
-  "homepage": "https://github.com/in0vik/tg-bot-talktochatgpt#readme",
-  "devDependencies": {
-    "dotenv": "^16.3.1",
-    "nodemon": "^2.0.22"
-  },
+  "homepage": "https://github.com/jsjoeio/telegram-bot-template#readme",
   "dependencies": {
     "@ffmpeg-installer/ffmpeg": "^1.1.0",
+    "@telegraf/session": "^2.0.0-beta.6",
+    "@vercel/edge-config": "^0.2.1",
+    "async-mutex": "^0.4.0",
     "axios": "^1.4.0",
+    "deepl-node": "^1.10.2",
+    "dotenv": "^16.3.1",
     "fluent-ffmpeg": "^2.1.2",
-    "markdown": "^0.5.0",
+    "fs": "0.0.1-security",
+    "node-fetch": "^3.3.1",
+    "node-replicate": "^2.0.0",
     "openai": "^3.2.1",
-    "telegraf": "^4.12.2"
+    "pg": "^8.11.0",
+    "redis": "^4.6.7",
+    "telegraf": "^4.12.2",
+    "tmp": "^0.2.1"
+  },
+  "devDependencies": {
+    "@types/node": "^15.3.0",
+    "typescript": "^4.2.4",
+    "vercel": "^23.0.1"
   }
 }

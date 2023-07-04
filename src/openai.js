@@ -1,8 +1,11 @@
 import { Configuration, OpenAIApi } from 'openai';
-import { createReadStream } from 'fs';
+import { createReadStream, createWriteStream } from 'fs';
+import { Readable } from 'stream';
+import tmp from 'tmp';
 import dotenv from 'dotenv';
-
 dotenv.config();
+
+const { OPENAI_KEY } = process.env; 
 
 class OpenAI {
   roles = {
@@ -32,17 +35,39 @@ class OpenAI {
   }
 
   // Transcribe an audio file using the OpenAI Whisper ASR API
-  async transcription(filepath) {
+  async transcription(mp3Data) {
     try {
+      const audioStream = new Readable();
+      audioStream.push(mp3Data);
+      audioStream.push(null);
+  
+      // make a temporary file
+      const tmpFile = tmp.fileSync({ postfix: '.mp3' });
+      const tmpFilePath = tmpFile.name;
+  
+      // write audioStream to temporary file
+      const writeStream = createWriteStream(tmpFilePath);
+      audioStream.pipe(writeStream);
+  
+      await new Promise((resolve, reject) => {
+        writeStream.on('finish', resolve);
+        writeStream.on('error', reject);
+      });
+  
+      // send temporary file
       const response = await this.openai.createTranscription(
-        createReadStream(filepath),
+        createReadStream(tmpFilePath),
         'whisper-1'
       );
-      return response.data.text; // Return the transcribed text
+  
+      // delete temporary file
+      tmpFile.removeCallback();
+  
+      return response.data.text; // return transcribed text
     } catch (err) {
       console.log(`Error while transcribing: ${err}`);
     }
   }
 }
 
-export const openai = new OpenAI(process.env.OPENAI_API_KEY);
+export const openai = new OpenAI(OPENAI_KEY);
