@@ -9,7 +9,7 @@ ffmpeg.setFfmpegPath(installer.path);
 class OggConverter {
   toMp3Buffer(input) {
     return new Promise((resolve, reject) => {
-      // Преобразование буфера в поток
+      // buffer to stream
       let bufferStream = new stream.PassThrough();
       bufferStream.end(Buffer.from(input, 'base64'));
   
