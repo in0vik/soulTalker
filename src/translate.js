@@ -1,5 +1,7 @@
 import * as deepl from 'deepl-node';
-const DEEPL_KEY = process.env.DEEPL_KEY;
+import config from 'config';
+
+const DEEPL_KEY = config.get('DEEPL_KEY');
 
 class Translator {
   constructor(apiKey) {

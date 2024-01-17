@@ -135,3 +135,5 @@ dist
 config/default.json
 config/production.json
 voices/*.mp3
+
+.history

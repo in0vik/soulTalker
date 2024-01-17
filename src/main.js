@@ -7,8 +7,7 @@ import { openai } from './openai.js';
 import { translator } from '../src/translate.js';
 import { models } from '../src/models.js';
 import { generateImage } from '../src/replicate.js';
-
-import dotenv from 'dotenv';
+import config from 'config';
 
 import express from 'express';
 const app = express();
@@ -18,9 +17,10 @@ app.listen(port, () => {
   console.log(`Server started on port ${port}`);
 });
 
-dotenv.config();
+const TELEGRAM_KEY = config.get('TELEGRAM_KEY');
 
-const bot = new Telegraf(process.env.BOT_TOKEN);
+
+const bot = new Telegraf(TELEGRAM_KEY);
 
 const INITIAL_SESSION = {
   messages: [],

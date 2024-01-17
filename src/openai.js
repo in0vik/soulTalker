@@ -4,8 +4,9 @@ import { Readable } from 'stream';
 import tmp from 'tmp';
 import dotenv from 'dotenv';
 import fetch from 'node-fetch';
+import config from 'config';
 
-dotenv.config();
+const OPENAI_KEY = config.get('OPENAI_KEY');
 globalThis.fetch = fetch;
 
 class OpenAI {
@@ -17,7 +18,7 @@ class OpenAI {
 
   constructor(apiKey) {
     const configuration = new Configuration({
-      apiKey: apiKey,
+      apiKey: OPENAI_KEY,
     });
     this.openai = new OpenAIApi(configuration);
   }
